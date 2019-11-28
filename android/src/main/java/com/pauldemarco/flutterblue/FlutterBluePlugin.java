@@ -655,7 +655,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
         try {
             settings = Protos.ScanSettings.newBuilder().mergeFrom(data).build();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                startScan21(settings);
+                startScan18(settings);
             } else {
                 startScan18(settings);
             }
@@ -667,7 +667,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
 
     private void stopScan() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            stopScan21();
+            stopScan18();
         } else {
             stopScan18();
         }
@@ -703,7 +703,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
     }
 
     @TargetApi(21)
-    private void startScan21(Protos.ScanSettings proto) throws IllegalStateException {
+    private void startScan18(Protos.ScanSettings proto) throws IllegalStateException {
         BluetoothLeScanner scanner = mBluetoothAdapter.getBluetoothLeScanner();
         if(scanner == null) throw new IllegalStateException("getBluetoothLeScanner() is null. Is the Adapter on?");
         int scanMode = proto.getAndroidScanMode();
@@ -719,7 +719,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
     }
 
     @TargetApi(21)
-    private void stopScan21() {
+    private void stopScan18() {
         BluetoothLeScanner scanner = mBluetoothAdapter.getBluetoothLeScanner();
         if(scanner != null) scanner.stopScan(getScanCallback21());
     }
