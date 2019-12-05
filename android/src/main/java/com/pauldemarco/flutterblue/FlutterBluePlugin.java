@@ -725,7 +725,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
     }
 
     @TargetApi(21)
-    private void stopScan18() {
+    private void stopScan21() {
         BluetoothLeScanner scanner = mBluetoothAdapter.getBluetoothLeScanner();
         if(scanner != null) scanner.stopScan(getScanCallback21());
     }
