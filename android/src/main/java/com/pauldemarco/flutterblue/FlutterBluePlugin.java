@@ -682,6 +682,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
 
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
+                    Log.d("scanResult",result.toString());
                     super.onScanResult(callbackType, result);
                     Protos.ScanResult scanResult = ProtoMaker.from(result.getDevice(), result);
                     invokeMethodUIThread("ScanResult", scanResult.toByteArray());
@@ -690,7 +691,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
                 @Override
                 public void onBatchScanResults(List<ScanResult> results) {
                     super.onBatchScanResults(results);
-
+                    Log.d("BATCHRESULTS","risultati!");
                 }
 
                 @Override
@@ -704,6 +705,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
 
     @TargetApi(21)
     private void startScan21(Protos.ScanSettings proto) throws IllegalStateException {
+        Log.d("STARTSCAN", "21");
         BluetoothLeScanner scanner = mBluetoothAdapter.getBluetoothLeScanner();
         if(scanner == null) throw new IllegalStateException("getBluetoothLeScanner() is null. Is the Adapter on?");
         int scanMode = proto.getAndroidScanMode();
@@ -713,8 +715,12 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
             String uuid = proto.getServiceUuids(i);
             ScanFilter f = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(uuid)).build();
             filters.add(f);
+            Log.d("FILTERSCAN",f.toString());
         }
         ScanSettings settings = new ScanSettings.Builder().setScanMode(scanMode).build();
+        /*ScanSettings settings = new ScanSettings.Builder()
+                        .setReportDelay(0)
+                        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build();*/
         scanner.startScan(filters, settings, getScanCallback21());
     }
 
@@ -741,6 +747,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
     }
 
     private void startScan18(Protos.ScanSettings proto) throws IllegalStateException {
+        Log.d("STARTSCAN", "18");
         List<String> serviceUuids = proto.getServiceUuidsList();
         UUID[] uuids = new UUID[serviceUuids.size()];
         for(int i = 0; i < serviceUuids.size(); i++) {
