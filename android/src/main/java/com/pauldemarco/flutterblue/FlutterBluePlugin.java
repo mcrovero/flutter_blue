@@ -655,7 +655,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
         try {
             settings = Protos.ScanSettings.newBuilder().mergeFrom(data).build();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                startScan18(settings);
+                startScan21(settings);
             } else {
                 startScan18(settings);
             }
