@@ -667,7 +667,7 @@ public class FlutterBluePlugin implements MethodCallHandler, RequestPermissionsR
 
     private void stopScan() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            stopScan18();
+            stopScan21();
         } else {
             stopScan18();
         }
